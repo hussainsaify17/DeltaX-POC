@@ -1,0 +1,20 @@
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\csc.exe
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\vbc.exe
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\VBCSCompiler.exe
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\DeltaX Frontend.dll.config
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\DeltaX Frontend.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\DeltaX Frontend.pdb
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\obj\Release\DeltaX Frontend.csprojResolveAssemblyReference.cache
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\obj\Release\DeltaX Frontend.dll
+C:\Users\hussain.saify\Desktop\Delta X\DeltaX Frontend\DeltaX Frontend\obj\Release\DeltaX Frontend.pdb

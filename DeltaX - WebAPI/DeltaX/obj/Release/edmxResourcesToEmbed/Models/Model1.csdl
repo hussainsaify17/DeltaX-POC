@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeltaXModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="MoviesID" />
+    </Key>
+    <Property Name="MoviesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="YEAROFRELEASE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PLOT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PosterImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Producer" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__Movies__Producer__403A8C7D" FromRole="Movies" ToRole="Persons" />
+  </EntityType>
+  <EntityType Name="MoviesActors">
+    <Key>
+      <PropertyRef Name="MoviesActorsID" />
+    </Key>
+    <Property Name="MoviesActorsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MovieID" Type="Int32" Nullable="false" />
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persons">
+    <Key>
+      <PropertyRef Name="PersonsID" />
+    </Key>
+    <Property Name="PersonsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Bio" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Designation" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Movies" Relationship="Self.FK__Movies__Producer__403A8C7D" FromRole="Persons" ToRole="Movies" />
+  </EntityType>
+  <Association Name="FK__Movies__Producer__403A8C7D">
+    <End Role="Persons" Type="DeltaXModel.Persons" Multiplicity="1" />
+    <End Role="Movies" Type="DeltaXModel.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="PersonsID" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="Producer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DeltaXEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Movies1" EntityType="DeltaXModel.Movies" />
+    <EntitySet Name="MoviesActors1" EntityType="DeltaXModel.MoviesActors" />
+    <EntitySet Name="Persons" EntityType="DeltaXModel.Persons" />
+    <AssociationSet Name="FK__Movies__Producer__403A8C7D" Association="Self.FK__Movies__Producer__403A8C7D">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Movies" EntitySet="Movies1" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

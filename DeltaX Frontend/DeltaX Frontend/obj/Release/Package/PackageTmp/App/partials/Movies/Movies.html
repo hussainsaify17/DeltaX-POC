@@ -1,0 +1,312 @@
+﻿<div class="row">
+    <div class="page-header col-sm-offset-1 col-sm-10">
+        <div class="col-sm-6">
+            <h3>Movies</h3>
+        </div>
+        <br />
+        <div class="col-sm-offset-4 col-sm-2">
+            <button data-target="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" ng-click="fillProducer()">
+                Add Movies
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row form-group" ng-init="loadlist()">
+    <div class="col-sm-12">
+        <table class="table table-hover table-condensed" style="border-radius:52px">
+            <thead>
+                <tr style="font-weight: bold; font-family: 'Times New Roman';font-size: smaller; ">
+                    <td style="width: 5%;padding: 15px">#</td>
+                    <td style="width: 30%; padding: 15px">Name</td>
+                    <td style="width: 30%; padding: 15px">Plot</td>
+                    <td style="width: 30%; padding: 15px">Year Of Release</td>
+                    <td style="width: 30%; padding: 15px">Producer</td>
+                    <td style="width: 30%; padding: 15px">Actions</td>
+                    <td style="width: 30%; padding: 15px">Actors</td>
+                </tr>
+            </thead>
+            <tr ng-repeat="listdata in list" style="font-family: Calibri; font-size:smaller">
+                <td style="padding: 15px">
+                    {{$index+1}}                    
+                    <span e-ng-hide="true" theme="bootstrap" editable-text="listdata.MoviesID" e-ng-disabled="true" e-name="MoviesID" e-form="rowform" e-required>
+                    </span>
+                    <span e-ng-hide="true" theme="bootstrap" editable-text="listdata.PosterImage" e-ng-disabled="true" e-name="PosterImage" e-form="rowform" e-required>
+                    </span>
+                </td>              
+                <td style="padding: 15px">                    
+                    <span editable-text="listdata.Name" theme="bootstrap" e-name="Name" e-form="rowform" e-required>
+                        {{ listdata.Name || 'empty' }}
+                    </span>
+                </td>
+                <td style="padding: 15px">                                                            
+                    <span editable-text="listdata.PLOT" theme="bootstrap" e-name="PLOT" e-form="rowform" e-required>
+                        {{ listdata.PLOT || 'empty' }}
+                    </span>
+                </td>
+                <td style="padding: 15px">
+                    <span editable-text="listdata.YEAROFRELEASE" theme="bootstrap"  e-name="YEAROFRELEASE" e-form="rowform" e-required>
+                        {{ listdata.YEAROFRELEASE || 'empty' }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-ui-select="listdata.Producer" e-form="rowform" e-name="Producer" theme="bootstrap" e-ng-model="producerlist"
+                          data-e-style="min-width:150px;">
+                        {{listdata.Producer.Name}}
+                        <editable-ui-select-match >
+                            {{$select.selected.Name}}
+                        </editable-ui-select-match>
+                        <editable-ui-select-choices repeat="producer in producerlist">
+                            {{producer.Name}}
+                        </editable-ui-select-choices>
+                    </span>
+                </td>
+
+                <!--<td style="padding: 15px">                    
+                    <span editable-text="listdata.Producer" e-name="Producer" e-ng-disabled="true"  e-form="rowform" e-required>
+                        {{ listdata.Producer || 'empty' }}
+                    </span>
+                </td>-->
+                <td style="white-space: nowrap">
+                    <!-- form -->
+                    <form editable-form name="rowform" onbeforesave="saveData($data, listdata.MoviesID)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == listdata">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn glyphicon glyphicon-ok"></button>
+                        <i type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn glyphicon glyphicon-remove">
+
+                        </i>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                        <i class="btn glyphicon glyphicon-pencil" ng-click="rowform.$show()"></i>
+                        <i class="btn glyphicon glyphicon-trash" ng-click="removeData(listdata.MoviesID)"></i>
+                    </div>
+                </td>
+                <td style="padding: 15px">                    
+                    <button data-target="#myModalActor" role="button" class="btn btn-primary" data-toggle="modal" ng-click="fillActors(listdata.MoviesID)">
+                        Actors
+                        <span class="glyphicon"></span>
+                    </button>
+                </td>
+                
+
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--Information Modal-->
+<div id="InfoModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                
+                <h4 class="modal-title">Info!!!</h4>
+            </div>
+            <div class="modal-body">
+                <h5>Please add actors from table by clicking Actors button.</h5>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--For listing all the actors of movie-->
+<div id="myModalActor" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Actors in {{MovieName}}</h4>
+            </div>            
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <ul style="list-style-type: disc">
+                            <li ng-repeat="actor in actorsinmovie">{{actor.Name}}                                
+                                    <i class="btn glyphicon glyphicon-minus" title="remove" ng-click="removeActor(actor.PersonID)"></i>
+                            </li>                            
+                        </ul>                        
+                    </div>
+                    <form id="Myform" name="Myform" novalidate ng-init="fillActor()" ng-submit="Myform.$valid && addActorToMovie();">
+                        <div class="form-group row">
+                            <label class="col-sm-offset-2 col-lg-2 form-control-label">Actor</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="actor" id="actor" ng-model="actor" ng-options="a.PersonID as a.Name for a in actorslist" required>
+                                    <option value="">---Please select---</option> <!-- not selected / blank option -->
+                                </select>
+                                <span ng-show="Myform.actor.$error.required">**Actor not selected</span>
+                            </div>
+                            <button type="submit" id="simplepost" class="btn">Add Actor</button>
+                        </div>                        
+                    </form>                    
+                 </div>
+                <div class="modal-footer">      
+                    <div class="col-sm-2">
+                        <button data-target="#ActorModal" role="button" class="btn btn-primary" data-toggle="modal">
+                            Add New Actor
+                            <span class="glyphicon"></span>
+                        </button>
+                    </div>                                  
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>            
+        </div>
+    </div>
+</div>
+
+
+<!--For Adding New movie-->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Movie</h4>
+            </div>
+            <form id="ajaxform" name="ajaxform" novalidate ng-init="fillProducer()" ng-submit="ajaxform.$valid && addMovie();">
+                <div class="modal-body">                    
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="moviename" name="moviename" ng-model="movie.movieName" placeholder="Name Of Your Movie" ng-required="true">
+                            <span ng-show="ajaxform.moviename.$invalid && ajaxform.moviename.$dirty || ajaxform.moviename.$invalid && ajaxform.$submitted">*Movie name Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Year Of Release</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="yor" ng-model="movie.yor" placeholder="Year Of Release" ng-required="true">
+                            <span ng-show="ajaxform.yor.$invalid && ajaxform.yor.$dirty || ajaxform.yor.$invalid && ajaxform.$submitted">*Year of released is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Plot</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="plot" placeholder="Plot" ng-model="movie.plot" ng-required="true">
+                            <span ng-show="ajaxform.plot.$invalid && ajaxform.plot.$dirty || ajaxform.plot.$invalid && ajaxform.$submitted">*Plot is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Producer</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="producer" id="producer" ng-model="movie.producer" ng-options="a.PersonID as a.Name for a in producerlist" required>
+                                <option value="">---Please select---</option> <!-- not selected / blank option -->
+                            </select>
+                            <span ng-show="ajaxform.producer.$error.required">Select Producer</span>
+                        </div>
+                        <div>
+                            <button type="button" data-target="#ProducerModal" role="button" class="btn" data-toggle="modal">
+                                New Producer
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="simplepost" class="btn btn-primary">Add Movie</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--ProducerModel-->
+<div id="ProducerModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Producer</h4>
+            </div>
+            <form id="producerform" name="producerform" novalidate ng-submit="producerform.$valid && AddPerson('producer');">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="personname" name="personname" ng-model="person.personname" placeholder="Name Of Producer" ng-required="true">
+                            <span ng-show="producerform.personname.$invalid && producerform.personname.$dirty || producerform.personname.$invalid && producerform.$submitted">*Producer name Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Date Of Birth</label>
+                        <div class="col-sm-4">
+                            <input type="date" class="form-control" name="DOB" ng-model="person.DOB" placeholder="DOB" ng-required="true">
+                            <span ng-show="producerform.DOB.$invalid && producerform.DOB.$dirty || producerform.DOB.$invalid && producerform.$submitted">*Date Of Birth is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Gender</label>
+                        <div class="col-sm-4">                            
+                            <select name="gender" id="gender" ng-model="person.gender" ng-options="a as a for a in genderOptions">
+                                <option value="">---Please select---</option> <!-- not selected / blank option -->
+                            </select>
+                            <span ng-show="producerform.gender.$error.required">*Gender is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">BIO</label>
+                        <div class="col-sm-4">
+                            <input type="textarea" class="form-control" name="bio" ng-model="person.bio" placeholder="All about Producer">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="simplepost" class="btn btn-primary">Add Producer</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Actor Modal-->
+<div id="ActorModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Actor</h4>
+            </div>
+            <form id="actorform" name="actorform" novalidate ng-submit="actorform.$valid && AddPerson('actor');">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="personname" name="personname" ng-model="person.personname" placeholder="Name Of Actor" ng-required="true">
+                            <span ng-show="actorform.personname.$invalid && actorform.personname.$dirty || actorform.personname.$invalid && actorform.$submitted">*Actor name Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Date Of Birth</label>
+                        <div class="col-sm-4">
+                            <input type="date" class="form-control" name="DOB" ng-model="person.DOB" placeholder="DOB" ng-required="true">
+                            <span ng-show="actorform.DOB.$invalid && actorform.DOB.$dirty || actorform.DOB.$invalid && actorform.$submitted">*Date Of Birth is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Gender</label>
+                        <div class="col-sm-4">
+                            <!--<input type="text" class="form-control" name="gender" placeholder="gender" ng-model="person.gender" ng-required="true">-->
+                            <select name="gender" id="gender" ng-model="person.gender" ng-options="a as a for a in genderOptions" required>
+                                <option value="">---Please select---</option> <!-- not selected / blank option -->
+                            </select>
+                            <span ng-show="actorform.gender.$error.required">*Gender is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">BIO</label>
+                        <div class="col-sm-4">
+                            <input type="textarea" class="form-control" name="bio" ng-model="person.bio" placeholder="All about actor">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="simplepost" class="btn btn-primary">Add Actor</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

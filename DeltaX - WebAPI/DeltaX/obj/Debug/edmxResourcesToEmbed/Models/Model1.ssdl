@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeltaXModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="MoviesID" />
+    </Key>
+    <Property Name="MoviesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="YEAROFRELEASE" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="PLOT" Type="varchar" MaxLength="255" />
+    <Property Name="PosterImage" Type="varchar" MaxLength="255" />
+    <Property Name="Producer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MoviesActors">
+    <Key>
+      <PropertyRef Name="MoviesActorsID" />
+    </Key>
+    <Property Name="MoviesActorsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MovieID" Type="int" Nullable="false" />
+    <Property Name="PersonID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persons">
+    <Key>
+      <PropertyRef Name="PersonsID" />
+    </Key>
+    <Property Name="PersonsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Sex" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="Bio" Type="varchar" MaxLength="255" />
+    <Property Name="Designation" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Movies__Producer__403A8C7D">
+    <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="PersonsID" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="Producer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DeltaXModelStoreContainer">
+    <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MoviesActors" EntityType="Self.MoviesActors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Persons" EntityType="Self.Persons" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Movies__Producer__403A8C7D" Association="Self.FK__Movies__Producer__403A8C7D">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,130 @@
+﻿<div class="row">
+    <div class="page-header col-sm-offset-1 col-sm-10">
+        <div class="col-sm-6">
+            <h3>Actors</h3>
+        </div>
+        <br />
+        <div class="col-sm-offset-4 col-sm-2">
+            <button data-target="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal" ng-click="fillProducer()">
+                Add Actor
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row form-group" ng-init="loadlist()">
+    <div class="col-sm-12">
+        <table class="table table-hover table-condensed" style="border-radius:52px">
+            <thead>
+                <tr style="font-weight: bold; font-family: 'Times New Roman';font-size: smaller; ">
+                    <td style="width: 5%;padding: 15px">#</td>
+                    <td style="width: 30%; padding: 15px">Name</td>
+                    <td style="width: 30%; padding: 15px">Date of Birth</td>
+                    <td style="width: 30%; padding: 15px">Gender</td>
+                    <td style="width: 30%; padding: 15px">Bio</td> 
+                    <td style="width: 30%; padding: 15px">Actions</td>                    
+                </tr>
+            </thead>
+            <tr ng-repeat="listdata in personlist" style="font-family: Calibri; font-size:smaller">
+                <td style="padding: 15px">
+                    {{$index+1}}
+                    <span e-ng-hide="true" theme="bootstrap" editable-text="listdata.PersonID" e-ng-disabled="true" e-name="PersonsID" e-form="rowform">
+                    </span>                   
+                </td>
+                <td style="padding: 15px">
+                    <span editable-text="listdata.Name" theme="bootstrap" e-name="Name" e-form="rowform" e-required>
+                        {{ listdata.Name || 'empty' }}
+                    </span>
+                </td>                
+                <td style="padding: 15px">
+                    <span editable-bsdate="listdata.DOB" e-is-open="opened.$data" e-ng-click="open($event,'$data')" e-datepicker-popup="dd-MMMM-yyyy" theme="bootstrap" e-name="DOB" e-form="rowform" e-required>                        
+                        {{ listdata.DOB| date:"dd/MM/yyyy" || 'empty' }}
+                    </span>
+                </td>                
+                <td>
+                    <span editable-ui-select="listdata.Sex" e-form="rowform" e-name="Sex" theme="bootstrap" e-ng-model="genderOptions"
+                          data-e-style="min-width:150px;">
+                        {{listdata.Sex}}
+                        <editable-ui-select-match>
+                            {{$select.selected}}
+                        </editable-ui-select-match>
+                        <editable-ui-select-choices repeat="option in genderOptions">
+                            {{option}}
+                        </editable-ui-select-choices>
+                    </span>
+                </td>
+                <td style="padding: 15px">
+                    <span editable-textarea="listdata.Bio" e-name="Bio"   e-form="rowform" e-required>
+                        {{ listdata.Bio || 'empty' }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap">
+                    <!-- form -->
+                    <form editable-form name="rowform" onbeforesave="saveData($data, listdata.PersonID)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == listdata">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn glyphicon glyphicon-ok"></button>
+                        <i type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn glyphicon glyphicon-remove">
+
+                        </i>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                        <i class="btn glyphicon glyphicon-pencil" ng-click="rowform.$show()"></i>
+                        <i class="btn glyphicon glyphicon-trash" ng-click="removeData(listdata.PersonID)"></i>
+                    </div>
+                </td>                
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+<!--For Adding New Actor-->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Actor</h4>
+            </div>
+            <form id="ajaxform" name="ajaxform" novalidate ng-submit="ajaxform.$valid && addPerson();">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="personname" name="personname" ng-model="person.personname" placeholder="Name Of Actor" ng-required="true">
+                            <span ng-show="ajaxform.personname.$invalid && ajaxform.personname.$dirty || ajaxform.personname.$invalid && ajaxform.$submitted">*Actor name Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Date Of Birth</label>
+                        <div class="col-sm-4">
+                            <input type="date" class="form-control" name="DOB" ng-model="person.DOB" placeholder="DOB" ng-required="true">
+                            <span ng-show="ajaxform.DOB.$invalid && ajaxform.DOB.$dirty || ajaxform.DOB.$invalid && ajaxform.$submitted">*Date Of Birth is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">Gender</label>
+                        <div class="col-sm-4">
+                            <!--<input type="text" class="form-control" name="gender" placeholder="gender" ng-model="person.gender" ng-required="true">-->
+                            <select name="gender" id="gender" ng-model="person.gender" ng-options="a as a for a in genderOptions" required>
+                                <option value="">---Please select---</option> <!-- not selected / blank option -->
+                            </select>
+                            <span ng-show="ajaxform.gender.$error.required">*Gender is Required</span>
+                        </div>
+                    </div>   
+                    <div class="form-group row">
+                        <label class="col-sm-offset-2 col-lg-2 form-control-label">BIO</label>
+                        <div class="col-sm-4">
+                            <input type="textarea" class="form-control" name="bio" ng-model="person.bio" placeholder="All about actor">                            
+                        </div>
+                    </div>                 
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="simplepost" class="btn btn-primary">Add Actor</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

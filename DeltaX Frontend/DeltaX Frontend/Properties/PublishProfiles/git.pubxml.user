@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\hussain.saify\Desktop\git.repo(frontend)</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App/Index.html">
+      <publishTime>06/21/2017 11:52:53</publishTime>
+    </File>
+    <File Include="App/js/app.js">
+      <publishTime>06/27/2017 16:48:53</publishTime>
+    </File>
+    <File Include="App/libraries/angular-route.min.js">
+      <publishTime>06/15/2017 13:22:45</publishTime>
+    </File>
+    <File Include="App/libraries/angular.min.js">
+      <publishTime>06/15/2017 13:22:45</publishTime>
+    </File>
+    <File Include="App/libraries/styles/main.css">
+      <publishTime>06/20/2017 15:52:29</publishTime>
+    </File>
+    <File Include="App/libraries/styles/xeditable.min.css">
+      <publishTime>06/19/2017 10:52:32</publishTime>
+    </File>
+    <File Include="App/libraries/xeditable.min.js">
+      <publishTime>06/19/2017 10:52:32</publishTime>
+    </File>
+    <File Include="App/partials/Actor/Actor.html">
+      <publishTime>06/21/2017 14:59:15</publishTime>
+    </File>
+    <File Include="App/partials/Actor/ActorController.js">
+      <publishTime>06/27/2017 15:03:59</publishTime>
+    </File>
+    <File Include="App/partials/Movies/Movies.html">
+      <publishTime>06/27/2017 15:14:22</publishTime>
+    </File>
+    <File Include="App/partials/Movies/MoviesController.js">
+      <publishTime>06/27/2017 15:18:07</publishTime>
+    </File>
+    <File Include="App/partials/Producer/Producer.html">
+      <publishTime>06/21/2017 13:22:45</publishTime>
+    </File>
+    <File Include="App/partials/Producer/ProducerController.js">
+      <publishTime>06/27/2017 12:38:07</publishTime>
+    </File>
+    <File Include="bin/DeltaX Frontend.dll">
+      <publishTime>06/27/2017 16:51:02</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>06/15/2015 02:06:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>06/18/2015 20:19:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>06/15/2017 13:18:36</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>06/27/2017 16:51:03</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
